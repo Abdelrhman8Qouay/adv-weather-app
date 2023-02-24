@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+:root {
+    --white-color: #fff;
+    --black-color: #000;
+    --primary: #ebebeb;
+
+    --background: #fff;
+    --text: #242424;
+    --add: rgb(189, 60, 34);
+}
+
+
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  gap: 30px;
+  background: url(https://images4.alphacoders.com/104/1043465.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+/* Start card_weather */
+
+
+/* parent  */
+.card_weather {
+  background-color: var(--background);
+  min-width: 450px;
+  min-height: 300px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+
+/* iframe map ( Content ) */
+.card_weather .col iframe {
+  max-width: 200px;
+  height: 100%;
+}
+
+
+.card_weather .col hr {
+  background-color: var(--add);
+  color: var(--add);
+}
+
+/* part info ( Content ) */
+.card_weather .part_info {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+/* search bar row */
+.card_weather .part_info .search_content {
+  position: relative;
+}
+.card_weather .part_info .search_content #btn-search {
+  position: absolute;
+  right: 0;
+  top: 52%;
+  transform: translateY(-48%);
+  color: var(--text);
+  transition: 0.5s;
+  width: 10%;
+  height: 100%;
+  cursor: pointer;
+}
+.card_weather .part_info .search_content input {
+  width: 100%;
+  height: 35px;
+  border: none;
+  box-shadow: inset 0 0 3px 0px var(--black-color);
+  outline: none;
+  border-radius: 3px;
+  background-color: var(--background);
+  color: var(--text);
+  padding: 5px 20px;
+  font-size: 13px;
+}
+.card_weather .part_info .search_content input:valid,
+.card_weather .part_info .search_content input:focus-visible {
+  border: 1px solid var(--add);
+  box-shadow: inset 0 0 3px 0px var(--add);
+}
+
+.card_weather .part_info .search_content input:valid + label,
+.card_weather .part_info .search_content input:focus-visible + label {
+  top: 0;
+  left: 2px;
+  color: var(--add);
+  font-size: 12px;
+  background-color: var(--background);
+  border-bottom: 1px solid var(--add);
+}
+.card_weather .part_info .search_content label {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #454545;
+  transition: 0.5s;
+  width: max-content;
+  border-radius: 8px;
+}
+
+
+/* big info row */
+.card_weather .big_info_content {
+}
+
+.card_weather .big_info_content .icon-deg {
+  display: flex;
+  align-items: center;
+  width: max-content;
+}
+.card_weather .big_info_content .icon-deg img {
+  height: 7rem;
+}
+
+.card_weather .big_info_content .num-deg {
+  font-size: 15px;
+  color: var(--text);
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: max-content;
+  align-items: center;
+}
+.card_weather .big_info_content .num-deg p {
+  font-size: 4rem;
+  color: var(--text);
+  margin: 0;
+}
+.card_weather .big_info_content .num-deg .ch_deg span {
+  cursor: pointer;
+  color: var(--add);
+  font-size: 1.3rem;
+}
+.card_weather .big_info_content .num-deg .ch_deg hr {
+  margin: 0;
+}
+.card_weather .big_info_content .num-deg .ch_deg span:hover,
+.card_weather .big_info_content .num-deg .ch_deg span.active {
+  color: var(--text);
+  transition: 0.4s;
+}
+
+/* collection-info row */
+.card_weather .part_info .collection-info {
+  width: 100%;
+}
+
+.card_weather .part_info .collection-info p {
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 3px;
+  width: max-content;
+  font-weight: 200;
+}
+.card_weather .part_info .collection-info p span:not(.material-symbols-outlined) {
+  color: var(--add);
+  font-size: 13px;
+}
+.card_weather .part_info .collection-info p span.material-symbols-outlined {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* text stat row */
+.text-stat h3 {
+  position: relative;
+  width: max-content;
+}
+.text-stat h3::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  background-color: var(--add);
+  bottom: 2px;
+  left: 0;
+}
+
+
+/* hourly_forecast row */
+.hourly_forecast {
+  width: 300px;
+}
+
+.hourly_forecast .fore-title {
+  margin-bottom: 1px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text);
+}
+
+
+.hourly_forecast .scroll_content_forecs{
+  padding: 5px;
+  display: flex;
+  gap: 5px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  box-shadow: inset 0 0 4px 1px var(--black-color);
+}
+.hourly_forecast .scroll_content_forecs.dragging{
+  scroll-behavior: auto;
+  cursor: grab;
+}
+.hourly_forecast .scroll_content_forecs.dragging .fore{
+  user-select: none;
+}
+
+
+
+.hourly_forecast .scroll_content_forecs .fore {
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 5px 15px;
+  margin: 0 5px;
+  flex: 1 0 auto;
+  box-shadow: 0 0 5px var(--black-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.hourly_forecast .scroll_content_forecs .fore .icon_num_fore {
+}
+.hourly_forecast .scroll_content_forecs .fore .icon_num_fore .icon-fore {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hourly_forecast .scroll_content_forecs .fore .icon_num_fore .icon-fore img {
+  height: 1.8em;
+  width: max-content;
+}
+.hourly_forecast .scroll_content_forecs .fore .icon_num_fore .num-fore p {
+  width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.hourly_forecast .scroll_content_forecs .fore .date-fore {
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.hourly_forecast .scroll_content_forecs .fore .collection-info-fore {
+  font-size: 14px;
+  width: 100%;
+}
+.hourly_forecast .scroll_content_forecs .fore .collection-info-fore .col-6 {
+  padding: 0;
+}
+.hourly_forecast .scroll_content_forecs .fore .collection-info-fore p {
+  font-size: 13px;
+  font-weight: 100;
+  margin-bottom: 2px;
+  color: var(--text);
+}
+.hourly_forecast .scroll_content_forecs .fore .collection-info-fore p span {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--add);
+}
+
+/* End card_weather */
