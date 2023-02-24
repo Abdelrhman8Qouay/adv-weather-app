@@ -32,22 +32,124 @@
 }
 
 
+/* Start lang Content  */
+
+.langContent {
+  color: var(--white-color);
+  background-color: #0000007c;
+  padding: 5px;
+}
+.langContent p {
+  margin: 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+}
+.langContent p:hover {
+  color: var(--text);
+}
+
+/* End lang Content  */
+
+/* Start Modal More About */
+
+.Self_modal_about {
+  position: absolute;
+  background-color: #0000004e;
+  left: 0;
+  top: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+.Self_modal_about.show {
+  display: flex;
+}
+.Self_modal_about.show .card {
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.Self_modal_about .card {
+  max-width: 400px;
+  min-height: 350px;
+  color: #454545;
+  transition: 0.5s;
+  transform: translateY(-30px);
+  visibility: hidden;
+}
+
+.Self_modal_about .card .card-body .owner .info-content {
+  flex: 1 0 65%;
+}
+
+.Self_modal_about .card .card-body .owner .info-content .social_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.Self_modal_about .card .card-body .owner .info-content .social_content a {
+  background-color: #454545;
+  color: #fff;
+  border-radius: 50%;
+  transition: 0.4s;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  text-decoration: none;
+}
+.Self_modal_about .card .card-body .owner .info-content .social_content a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.Self_modal_about .card .card-body .owner .img-content {
+  flex: 1 0 35%;
+  border-radius: 50%;
+  height: max-content;
+}
+.Self_modal_about .card .card-body .owner .img-content img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* End Modal More About */
+
 /* Start card_weather */
-
-
 /* parent  */
 .card_weather {
   background-color: var(--background);
-  min-width: 450px;
+  min-width: 250px;
   min-height: 300px;
   padding: 10px;
   border-radius: 8px;
+  display: flex;
+  flex-direction: row;
 }
 
 
 /* iframe map ( Content ) */
-.card_weather .col iframe {
-  max-width: 200px;
+
+.card_weather .part_map {
+  flex: 0;
+  transition: 0.4s;
+}
+.card_weather .part_map.show {
+  flex: 1 0 250px;
+  padding: 10px;
+}
+.card_weather .part_map iframe {
+  max-width: 100%;
   height: 100%;
 }
 
@@ -59,6 +161,8 @@
 
 /* part info ( Content ) */
 .card_weather .part_info {
+  flex: 1 0 auto;
+  padding: 10px;
   display: flex;
   gap: 5px;
   flex-direction: column;
@@ -198,7 +302,8 @@
 
 /* hourly_forecast row */
 .hourly_forecast {
-  width: 300px;
+  min-width: 100%;
+  max-width: 150px;
 }
 
 .hourly_forecast .fore-title {
@@ -216,6 +321,13 @@
   overflow: auto;
   scroll-behavior: smooth;
   box-shadow: inset 0 0 4px 1px var(--black-color);
+}
+.hourly_forecast .scroll_content_forecs::-webkit-scrollbar {
+  background-color: var(--text);
+  height: 7px;
+}
+.hourly_forecast .scroll_content_forecs::-webkit-scrollbar-thumb {
+  background-color: var(--add);
 }
 .hourly_forecast .scroll_content_forecs.dragging{
   scroll-behavior: auto;
@@ -286,3 +398,13 @@
 }
 
 /* End card_weather */
+
+/* Queries styles  -------------------------------------*/
+
+@media (max-width: 590px) {
+
+  body #app .card_weather {
+    flex-direction: column;
+  }
+
+}

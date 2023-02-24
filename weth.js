@@ -1,20 +1,53 @@
 
 // All Variables
+const pMoreBtn = document.querySelector(".langContent p");
+
 const selectBoxLang = document.getElementById("lang-select");
-let input = document.getElementById("search");
+
+const input = document.getElementById("search");
+const searchBtn = document.getElementById("btn-search");
 
 
 // option variables
 const apiKey = "c5b938c99e40b31dd1f5ae5aad327606";
-let apiLang;
+let apiLang = 'en', valueInput = '';
+
+
+searchBtn.addEventListener("click", ()=> {
+	valueInput = input.value.toLowerCase();
+	console.log(valueInput);
+	show(getapi(valueInput, apiLang))
+});
+
+input.addEventListener("keyup", (event)=> {
+    if(event.key == "Enter" || event.key == "enter") {
+		valueInput = input.value.toLowerCase();
+		console.log(valueInput);
+        show(getapi(valueInput, apiLang));
+    }
+})
 
 selectBoxLang.onchange = () => {
-	const res = getapi('cairo', selectBoxLang.value).then(data =>  {
-		console.log(data);
-		return data;
-	})
+	apiLang = selectBoxLang.value;
+	if(valueInput !== ''){
+		const res = getapi(valueInput, apiLang).then(data =>  {
+			return data
+		}).catch(err => console.log(err));
+	}
 }
 
+
+
+
+pMoreBtn.onclick = ()=> {
+	let ModalDiv = document.querySelector('.'+pMoreBtn.dataset.class);
+	ModalDiv.classList.add("show");
+	ModalDiv.addEventListener("click", (e)=> {
+		if(e.target == ModalDiv){
+			ModalDiv.classList.remove("show");
+		}
+	})
+}
 // btn.onclick = () => {
 //     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&appid=${apiKey}`)
 // 	.then(response => response.json())
@@ -74,12 +107,6 @@ async function getapi(value, lang = 'en') {
     return data;
 }
 
-// Calling that async function
-const res = getapi('cairo', 'ar').then(data =>  {
-	console.log(data);
-	return data;
-})
-
 // Function to define innerHTML for HTML table
 function show(data) {
 //     let tab =
@@ -101,6 +128,10 @@ function show(data) {
 //     }
 //     // Setting innerHTML as tab variable
 //     document.getElementById("employees").innerHTML = tab;
+	data.then(res =>  {
+		console.log(res);
+		return res;
+	}).catch(err => console.log(err));
 }
 
 
