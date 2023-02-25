@@ -37,136 +37,102 @@
                     <label for="search">Search Country, city</label>
                     <span id="btn-search" class="material-symbols-outlined">search</span>
                 </div>
-                <div class="row big_info_content">
-                    <div class="icon-deg col-md-4 col-4 col-sm-12">
-                        <img src="https://openweathermap.org/img/wn/01n@2x.png" />
-                    </div>
-                    <div class="num-deg col-md-8 col-8 col-sm-12">
-                        <p>54</p>
-                        <div class="ch_deg">
-                            <span data-temp="f" class="active">°F</span>
-                            <hr>
-                            <span data-temp="c">°C</span>
+
+                <!-- Container Of Show All Results Here  -->
+                <div class="container_result_info">
+
+                    <!-- <div class="big_info_content">
+                        <div class="name-deg">
+                            <span>Feb 25, 06:18am</span>
+                            <h1>Cairo, EG</h1>
+                            <div class="content-info">
+                                <span>SUNRISE: 06:27am <span class="material-symbols-outlined">sunny_snowing</span></span>
+                                <span>SUNSET: 05:49pm <span class="material-symbols-outlined">wb_twilight</span></span>
+                            </div>
+                        </div>
+                        <div class="icon-deg">
+                            <img src="https://openweathermap.org/img/wn/01n@2x.png" />
+                        </div>
+                        <div class="num-deg">
+                            <p>54</p>
+                            <div class="ch_deg">
+                                <span data-temp="f" class="active">°F</span>
+                                <hr>
+                                <span data-temp="c">°C</span>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="row text-stat">
+                        <h3>Clear</h3>
+                    </div>
+
+                    <div class="row collection-info">
+                        <div class="col-6 col-md-6">
+                            <p>Feels Like <span>53</span>°</p>
+                            <p>Barometer <span>30.05</span> in</p>
+                            <p>Humidity <span>54</span>%</p>
+                        </div>
+                        <div class="col-6 col-md-6">
+                            <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
+                            <p>Visibility <span>10.0</span>km</p>
+                            <p>Dew Point <span>42</span>°</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row hourly_forecast">
+                        <p class="fore-title">Hourly Forecast</p>
+                        <div class="scroll_content_forecs">
+                            <div class="fore">
+                                <div class="row icon_num_fore">
+                                    <div class="icon-fore col-md-4 col-4 col-sm-12">
+                                        <img src="https://openweathermap.org/img/wn/01n@2x.png" />
+                                    </div>
+                                    <div class="num-fore col-md-8 col-8 col-sm-12">
+                                        <p>54°</p>
+                                    </div>
+                                </div>
+                                <div class="date-fore">
+                                    <span>Sun, Feb26</span>
+                                    <span>clear sky</span>
+                                </div>
+                                <div class="row collection-info-fore">
+                                    <div class="col-6 col-md-6">
+                                        <p>Feels Like <span>53</span>°</p>
+                                        <p>Barometer <span>30.05</span> in</p>
+                                        <p>Humidity <span>54</span>%</p>
+                                    </div>
+                                    <div class="col-6 col-md-6">
+                                        <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
+                                        <p>Visibility <span>10.0</span>km</p>
+                                        <p>Dew Point <span>42</span>°</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="empty_result">
+                        <div class="empty-img">
+                            <img src="https://www.freeiconspng.com/uploads/weather-icon-png-16.png" alt="Weather Empty" />
+                        </div>
+                        <div class="empty-info">
+                            <p class="text-center">Empty Result Show</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="empty_result">
+                        <div class="empty-img">
+                            <img src="https://static.thenounproject.com/png/4147389-200.png" alt="Weather Empty" />
+                        </div>
+                        <div class="empty-info">
+                            <p class="text-center">There's Is A Problem, or Not Found Country, City</p>
+                        </div>
+                    </div> -->
                 </div>
 
-                <div class="row text-stat">
-                    <h3>Clear</h3>
-                </div>
-
-                <div class="row collection-info">
-                    <div class="col-6 col-md-6">
-                        <p>Feels Like <span>53</span>°</p>
-                        <p>Barometer <span>30.05</span> in</p>
-                        <p>Humidity <span>54</span>%</p>
-                    </div>
-                    <div class="col-6 col-md-6">
-                        <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
-                        <p>Visibility <span>10.0</span>km</p>
-                        <p>Dew Point <span>42</span>°</p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <div class="row hourly_forecast">
-                    <p class="fore-title">Hourly Forecast</p>
-                    <div class="scroll_content_forecs">
-                        <div class="fore">
-                            <div class="row icon_num_fore">
-                                <div class="icon-fore col-md-4 col-4 col-sm-12">
-                                    <img src="https://openweathermap.org/img/wn/01n@2x.png" />
-                                </div>
-                                <div class="num-fore col-md-8 col-8 col-sm-12">
-                                    <p>54°</p>
-                                </div>
-                            </div>
-                            <div class="date-fore">
-                                <span>Sun, Feb26</span>
-                                <span>clear sky</span>
-                            </div>
-                            <div class="row collection-info-fore">
-                                <div class="col-6 col-md-6">
-                                    <p>Feels Like <span>53</span>°</p>
-                                    <p>Barometer <span>30.05</span> in</p>
-                                    <p>Humidity <span>54</span>%</p>
-                                </div>
-                                <div class="col-6 col-md-6">
-                                    <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
-                                    <p>Visibility <span>10.0</span>km</p>
-                                    <p>Dew Point <span>42</span>°</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="fore">
-                            <div class="icon-fore">
-                                <img src="https://openweathermap.org/img/wn/01n@2x.png" />
-                            </div>
-                            <div class="date-fore">
-                                <span>Sun, Feb26</span>
-                                <span>clear sky</span>
-                            </div>
-                            <div class="row collection-info-fore">
-                                <div class="col-6 col-md-6">
-                                    <p>Feels Like <span>53</span>°</p>
-                                    <p>Barometer <span>30.05</span> in</p>
-                                    <p>Humidity <span>54</span>%</p>
-                                </div>
-                                <div class="col-6 col-md-6">
-                                    <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
-                                    <p>Visibility <span>10.0</span>km</p>
-                                    <p>Dew Point <span>42</span>°</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="fore">
-                            <div class="icon-fore">
-                                <img src="https://openweathermap.org/img/wn/01n@2x.png" />
-                            </div>
-                            <div class="date-fore">
-                                <span>Sun, Feb26</span>
-                                <span>clear sky</span>
-                            </div>
-                            <div class="row collection-info-fore">
-                                <div class="col-6 col-md-6">
-                                    <p>Feels Like <span>53</span>°</p>
-                                    <p>Barometer <span>30.05</span> in</p>
-                                    <p>Humidity <span>54</span>%</p>
-                                </div>
-                                <div class="col-6 col-md-6">
-                                    <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
-                                    <p>Visibility <span>10.0</span>km</p>
-                                    <p>Dew Point <span>42</span>°</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="fore">
-                            <div class="icon-fore">
-                                <img src="https://openweathermap.org/img/wn/01n@2x.png" />
-                            </div>
-                            <div class="date-fore">
-                                <span>Sun, Feb26</span>
-                                <span>clear sky</span>
-                            </div>
-                            <div class="row collection-info-fore">
-                                <div class="col-6 col-md-6">
-                                    <p>Feels Like <span>53</span>°</p>
-                                    <p>Barometer <span>30.05</span> in</p>
-                                    <p>Humidity <span>54</span>%</p>
-                                </div>
-                                <div class="col-6 col-md-6">
-                                    <p>Wind <span class="material-symbols-outlined">air</span><span>4</span>m/s N</p>
-                                    <p>Visibility <span>10.0</span>km</p>
-                                    <p>Dew Point <span>42</span>°</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="part_map">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13805.464837536068!2d31.35260546202832!3d30.112332821607392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145815dcc3e4e599%3A0x6c67c22e4aa39206!2z2YXYtdixINin2YTYrNiv2YrYr9ip2Iwg2KfZhNmF2LfYp9ix2Iwg2YLYs9mFINin2YTZhtiy2YfYqdiMINmF2K3Yp9mB2LjYqSDYp9mE2YLYp9mH2LHYqeKArCA0NDcwMzUx!5e0!3m2!1sar!2seg!4v1677164191820!5m2!1sar!2seg" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
