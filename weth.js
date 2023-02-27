@@ -1,6 +1,8 @@
 
 // All Variables
-const pMoreBtn = document.querySelector(".langContent p");
+const app = document.getElementById("app");
+
+const pMoreBtn = document.getElementById("MoreInfoP");
 
 const selectBoxLang = document.getElementById("lang-select");
 
@@ -8,33 +10,53 @@ const input = document.getElementById("search");
 const searchBtn = document.getElementById("btn-search");
 
 const cardMap = document.querySelector(".card_weather .part_map");
+const parent_card = document.querySelector(".card_weather .parent_card");
 
 let tempBtns = '';
 
 
-// option variables
+
+// options variables
 const apiKey = "c5b938c99e40b31dd1f5ae5aad327606";
-const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-'Friday', 'Saturday'];
+
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu',
+'Fri', 'Sat'];
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 let apiLang = 'en', valueInput = '', tempC = 'f';
 
+// Initialize The Map Of Content
+var map = L.map('map');
+map.setView([35.192, 141.768], 6);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 19,
+	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+	boxZoom: true,
+	trackResize: true,
+	worldCopyJump: true,
+}).addTo(map);
+
+
+
+
 // All Changes To Show Weather Result On Page
 // When Click On search button
 searchBtn.addEventListener("click", ()=> {
 	valueInput = input.value.toLowerCase();
-	console.log(valueInput);
-	show(getapi(valueInput, apiLang))
+	if(valueInput !== ''){
+		show(getapi(valueInput, apiLang));
+	}
 });
 
 // When Click On [ Enter ] in Keyboard From Input Search
 input.addEventListener("keyup", (event)=> {
     if(event.key == "Enter" || event.key == "enter") {
 		valueInput = input.value.toLowerCase();
-		console.log(valueInput);
-        show(getapi(valueInput, apiLang));
+        if(valueInput !== ''){
+			show(getapi(valueInput, apiLang));
+		}
     }
 })
 
@@ -59,47 +81,6 @@ pMoreBtn.onclick = ()=> {
 	})
 }
 
-// btn.onclick = () => {
-//     fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&appid=${apiKey}`)
-// 	.then(response => response.json())
-// 	.then(data => {
-// 		console.log(data);
-// 		const temp = Ktoc(data.main.temp);
-// 		out.innerHTML = `
-// 		<h3>the weather of ${input.value}</h3>
-// 		<h4><img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" style="height: 3em" /> ${temp}°C</h4>
-// 		<h4><img src="./assets/wind.png" style="width: 4.3em; height: 2.2em" /> ${data.wind.speed}km/h</h4>
-// 		<h5>${data.weather[0].main}</h5>
-// 		`;
-// 		fetch("./sample.json").then(res => res.json())
-// 		.then(imgsData => {
-// 			const inputVa = document.getElementById("input").value;
-
-
-// 			Object.keys(imgsData[0]).forEach((ind) => {
-// 				if (ind === inputVa) {
-
-// 					document.querySelector(".contain-weather").style.backgroundImage = `url(${imgsData[0][ind]})`;
-// 					// document.querySelector(".contain-weather").style.borderRadius = "50%";
-// 					document.querySelector(".input-choice label").style.display = "none";
-// 					document.querySelector(".contain-weather").style.padding = `35px`;
-// 					// document.querySelector(".contain-weather").style.height = `40%`;
-// 					document.querySelector(".input-choice .btn").style.background = "transparent";
-// 				} else {
-// 					return false;
-// 				}
-// 			})
-// 		})
-// 		.catch(err => console.log(err))
-
-// 	})
-// 	.catch(err => {
-// 		console.error(err);
-// 		out.innerHTML =  `<p class="text-center"><q>this is not found</q></p>`
-// 	});
-// }
-
-
 
 // Defining async function
 async function getapi(value, lang = 'en') {
@@ -120,10 +101,31 @@ async function getapi(value, lang = 'en') {
 function show(data) {
 	let content;
 	data.then(res =>  {
-		console.log(res[1]);
+		const CurrentDate = new Date(res[0].dt * 1000),
+		 sunriseDate = new Date(res[0].sys.sunrise * 1000),
+		 sunsetDate = new Date(res[0].sys.sunset * 1000);
 		let fore = '';
 
+		setLocationMap(res[0].coord.lat, res[0].coord.lon);
+
+		if(res[0].weather[0].main.toLowerCase() === 'clouds') {
+			backStyle(app, 'url(./assets/imgs/clouds-weather.webp)');
+		} else if(res[0].weather[0].main.toLowerCase() === 'clear' && CurrentDate.getHours() >= sunriseDate.getHours() && CurrentDate.getHours() < sunsetDate.getHours()){
+			backStyle(app, 'url(./assets/imgs/light-day.webp)');
+		} else if(res[0].weather[0].main.toLowerCase() === 'clear'){
+			if (CurrentDate.getHours() >= sunsetDate.getHours() || CurrentDate.getHours() < sunriseDate.getHours()) {
+				backStyle(app, 'url(./assets/imgs/clear-night.jpg)');
+			}
+		} else if(res[0].weather[0].main.toLowerCase() === 'haze'){
+			backStyle(app, 'url(./assets/imgs/haze-weather.jpg)');
+		} else {
+			backStyle(app, 'url(./assets/imgs/defo.jpg)');
+		}
+
+
 		for(let i = 0; i < res[1].list.length; i++){
+			let dateForecast = new Date(res[1].list[i].dt * 1000);
+
 			fore+= `<div class="fore">
 						<div class="row icon_num_fore">
 							<div class="icon-fore col-md-4 col-4 col-sm-12">
@@ -134,8 +136,8 @@ function show(data) {
 							</div>
 						</div>
 						<div class="date-fore">
-							<span>Sun, Feb26</span>
-							<span>${res[1].list[i].weather[0].main}, ${res[1].list[i].weather[0].description}</span>
+							<span>${days[dateForecast.getDay()]}, ${months[dateForecast.getMonth()]}${dateForecast.getDate()}: ${formatAMPM(dateForecast)}</span>
+							<span>${res[1].list[i].weather[0].description}</span>
 						</div>
 						<div class="row collection-info-fore">
 							<div class="col-6 col-md-6">
@@ -145,8 +147,8 @@ function show(data) {
 							</div>
 							<div class="col-6 col-md-6">
 								<p>Wind <span class="material-symbols-outlined">air</span><span>${res[1].list[i].wind.speed}</span>m/s N</p>
-								<p>Visibility <span>${res[1].list[i].visibility.toLocaleString().substr(0, 4).replace(",", ".")}}</span>km</p>
-								<p>Pressure <span>${res[1].list[i].main.pressure}</span>°</p>
+								<p>Visibility <span>${res[1].list[i].visibility.toLocaleString().substr(0, 4).replace(",", ".")}</span>km</p>
+								<p>Pressure <span>${res[1].list[i].main.pressure}</span>hPa</p>
 							</div>
 						</div>
 					</div>`;
@@ -154,11 +156,11 @@ function show(data) {
 
 		content = `<div class="row big_info_content">
 						<div class="name-deg">
-							<span>Feb 25, 06:18am</span>
+							<span>${months[CurrentDate.getMonth()]} ${CurrentDate.getDate().toLocaleString(hour12=true)}, ${formatAMPM(CurrentDate)}</span>
 							<h1>${res[0].name}, ${res[0].sys.country}</h1>
 							<div class="content-info">
-								<span>SUNRISE: 06:27am <span class="material-symbols-outlined">sunny_snowing</span></span>
-								<span>SUNSET: 05:49pm <span class="material-symbols-outlined">wb_twilight</span></span>
+								<span>SUNRISE: ${formatAMPM(sunriseDate)} <span class="material-symbols-outlined">sunny_snowing</span></span>
+								<span>SUNSET: ${formatAMPM(sunsetDate)} <span class="material-symbols-outlined">wb_twilight</span></span>
 							</div>
 						</div>
 						<div class="icon-deg col-md-4 col-4 col-sm-12">
@@ -200,6 +202,7 @@ function show(data) {
 
 		document.querySelector(".card_weather .part_info .container_result_info").innerHTML = content;
 
+		draggingShow();
 		const tempBtns = document.querySelectorAll(".num-deg .ch_deg .tempBtn");
 		tempBtns.forEach(btn => {
 			if(btn.dataset.temp === tempC){
@@ -217,10 +220,12 @@ function show(data) {
 		})
 
 		cardMap.classList.add("show");
+		parent_card.classList.add("show");
 	}).catch(err => {
+		backStyle(app, 'url(./assets/imgs/defo.jpg)');
 		content = `<div class="empty_result">
 						<div class="empty-img">
-							<img src="https://static.thenounproject.com/png/4147389-200.png" alt="Weather Empty" />
+							<img src="./assets/imgs/not-found.png" alt="Weather Empty" />
 						</div>
 						<div class="empty-info">
 							<p class="text-center">There's Is A Problem, or Not Found Country, City</p>
@@ -236,11 +241,7 @@ function show(data) {
 
 
 
-/* Function Return C celsius | Or | F fahrenheit degree of ( °C ) or ( °F ) v2.0
-** K = the origin degree [Example, 281.49]
-** degF = accept string value { 'c' | 'f' } else will not work the function
-** Real Example >>> console.log(Ktoc(290.05, 'f')) >> 61 °F
-*/
+// Function Return C celsius | Or | F fahrenheit degree of ( °C ) or ( °F ) v2.0
 function getTemp(K, state = 'f'){
 	if(state === 'c') {
 		return Math.floor(K - 273.15);
@@ -250,27 +251,58 @@ function getTemp(K, state = 'f'){
 	} else{ return; }
 }
 
-
-
-// Dragging The Hourly Forecast --------------------------
-
-const tabsBox = document.querySelector(".hourly_forecast .scroll_content_forecs"),
-allTabs = document.querySelectorAll(".hourly_forecast .scroll_content_forecs .fore");
-
-let isDragging = false;
-
-const dragging = (e)=> {
-    if(!isDragging)return;
-    tabsBox.classList.add("dragging");
-    tabsBox.scrollLeft -= e.movementX;
-    // handleIcons();
+// Function To Put The Format of Time From Any Date With ( Hours | Minutes ) With pm or am
+function formatAMPM(date) {
+	var hours = date.getHours();
+	var minutes = date.getMinutes();
+	var ampm = hours >= 12 ? 'pm' : 'am';
+	hours = hours % 12;
+	hours = hours ? hours : 12; // the hour '0' should be '12'
+	minutes = minutes < 10 ? '0'+minutes : minutes;
+	var strTime = hours + ':' + minutes + ' ' + ampm;
+	return strTime;
 }
 
-const dragStop = ()=> {
-    isDragging = false;
-    tabsBox.classList.remove("dragging");
+// Function Dragging The Hourly Forecast
+function draggingShow(){
+	const tabsBox = document.querySelector(".hourly_forecast .scroll_content_forecs"),
+	allTabs = document.querySelectorAll(".hourly_forecast .scroll_content_forecs .fore");
+
+	let isDragging = false;
+
+	const dragging = (e)=> {
+		if(!isDragging)return;
+		tabsBox.classList.add("dragging");
+		tabsBox.scrollLeft -= e.movementX;
+		// handleIcons();
+	}
+
+	const dragStop = ()=> {
+		isDragging = false;
+		tabsBox.classList.remove("dragging");
+	}
+
+	tabsBox.addEventListener('mousedown', ()=> isDragging = true);
+	tabsBox.addEventListener('mousemove', dragging);
+	document.addEventListener('mouseup', dragStop);
 }
 
-tabsBox.addEventListener('mousedown', ()=> isDragging = true);
-tabsBox.addEventListener('mousemove', dragging);
-document.addEventListener('mouseup', dragStop);
+
+// Function To Add The Background Styles
+function backStyle(varia, value) {
+	varia.style.background = value;
+	varia.style.backgroundRepeat = 'no-repeat';
+	varia.style.backgroundSize = 'cover';
+}
+
+
+// Function To Change Location In Map With ( Latitude, Longitude ) OF City
+function setLocationMap(lat, lon) {
+
+	var marker = L.marker([lat, lon]).addTo(map);
+	var popup = L.popup()
+    .setLatLng([lat, lon])
+    .setContent(`Latitude: ${lat}, Longitude: ${lon}`)
+    .openOn(map);
+
+}

@@ -12,19 +12,16 @@
     --black-color: #000;
     --primary: #ebebeb;
 
-    --background: #fff;
+    --background: #ffffff5c;
     --text: #242424;
-    --add: rgb(189, 60, 34);
+    --add: #084298;
 }
 
 
 #app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   min-height: 100vh;
+  display: flex;
   gap: 30px;
   background: url(https://images4.alphacoders.com/104/1043465.jpg);
   background-repeat: no-repeat;
@@ -32,16 +29,9 @@
 }
 
 
-/* Start lang Content  */
+/* End lang Content  */
 
-.langContent {
-  color: var(--white-color);
-  background-color: #6c757d;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #000;
-}
-.langContent p {
+p#MoreInfoP {
   margin: 0;
   cursor: pointer;
   display: flex;
@@ -49,11 +39,10 @@
   align-items: center;
   margin: 10px 0;
 }
-.langContent p:hover {
+p#MoreInfoP:hover {
   color: var(--text);
 }
 
-/* End lang Content  */
 
 /* Start Modal More About */
 
@@ -115,14 +104,12 @@
 
 .Self_modal_about .card .card-body .owner .img-content {
   flex: 1 0 35%;
-  border-radius: 50%;
   height: max-content;
 }
 .Self_modal_about .card .card-body .owner .img-content img {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
 /* End Modal More About */
@@ -131,28 +118,57 @@
 /* parent  */
 .card_weather {
   background-color: var(--background);
-  min-width: 250px;
-  min-height: 300px;
+  box-shadow: 0 0 10px var(--black-color);
   padding: 10px;
   border-radius: 8px;
+  width: 100%;
+  height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
+/* parent card Part Up ------------------ */
+.card_weather .parent_card {
+  display: flex;
+  flex-direction: column;
+  visibility: hidden;
+  height: 0;
+  transition: 0.5s;
+}
+.card_weather .parent_card.show {
+  visibility: visible;
+  height: auto;
+}
+
+.card_weather .parent_card select {
+  height: 35px;
+}
+
+
+/* body card Part Down  ------------------*/
+.card_weather .body_card {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
 
 /* iframe map ( Content ) */
 
 .card_weather .part_map {
   flex: 0;
   transition: 0.4s;
+  width: 0;
+  padding: 10px;
 }
 .card_weather .part_map.show {
   flex: 1 0 250px;
-  padding: 10px;
+  width: 250px;
 }
-.card_weather .part_map iframe {
+.card_weather .part_map iframe,
+.card_weather .part_map #map {
   max-width: 100%;
   height: 100%;
+  box-shadow: 0 0 10px var(--black-color);
 }
 
 
@@ -238,9 +254,7 @@
   top: 0;
   left: 2px;
   color: var(--add);
-  font-size: 12px;
-  background-color: var(--background);
-  border-bottom: 1px solid var(--add);
+  font-size: 14px;
 }
 .card_weather .part_info .search_content label {
   position: absolute;
@@ -442,10 +456,14 @@
 
 /* Queries styles  -------------------------------------*/
 
-@media (max-width: 590px) {
+@media (max-width: 829px) {
 
-  body #app .card_weather {
+  #app .card_weather .body_card {
     flex-direction: column;
+  }
+
+  #app .card_weather .part_map.show {
+    width: 100%;
   }
 
 }
